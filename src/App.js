@@ -23,7 +23,7 @@ function App() {
 
     <Router>
         <Routes>
-
+        <Route path="/" element={< Login/>}/>
         <Route path="/signup" element={< SignUp />} />
         <Route path="/login" element={<Login />} />
 
@@ -43,27 +43,6 @@ function App() {
         <Route path="/resourcescontent" element={<ResourcesContent />} />
       </Routes>
     </Router>
-
-
-
-
-    // <div className="App">
-    //   {/* < Topbar />
-    //   <Sidebar /> */}
-    //   {/* < Resources /> */}
-    //   {/* <ReAccess/> */}
-    //   {/* <ResourcesContent /> */}
-    //   {/* <MenteeProfileCreate /> */}
-    //   {/* < Content /> */}
-    //   <Users />
-
-    //   {/* ----------------<Community /> -------------*/}
-
-    //   <div className="contents">
-
-        
-    //   </div>
-    // </div>
   );
 }
 
