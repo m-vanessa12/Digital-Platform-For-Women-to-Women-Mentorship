@@ -10,6 +10,7 @@ import Login from "./signup-login/Login";
 import SignUp from "./signup-login/SignUp";
 import MenteeProfile from "./platform users/menteeProfile";
 import Community from "./community/community";
+import HomePage from "./Landing Page/landing";
 
 
 // import { BrowserRouter as Router, Route} from 'react-router-dom' 
@@ -23,7 +24,7 @@ function App() {
 
     <Router>
         <Routes>
-        <Route path="/" element={< Login/>}/>
+        <Route path="/" element={<HomePage/>}/>
         <Route path="/signup" element={< SignUp />} />
         <Route path="/login" element={<Login />} />
 
