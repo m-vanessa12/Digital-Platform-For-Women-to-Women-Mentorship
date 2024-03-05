@@ -6,10 +6,23 @@ import { faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
 import { faPerson} from '@fortawesome/free-solid-svg-icons';
 import { faFile} from '@fortawesome/free-solid-svg-icons';
 import { faComment} from '@fortawesome/free-solid-svg-icons';
+
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 
 const Sidebar = () => {
+
+    const navigates = useNavigate();
+    const goToIntroductory = useCallback( () => {
+        navigates('/introductory')
+    }, [navigates]);
+
+    const navigaProfile = useNavigate();
+    const goToProfile = useCallback( () => {
+        navigaProfile('/profile-create')
+    }, [navigaProfile]);
+
+
     const navigate = useNavigate();
     const goToResources = useCallback( () => {
         navigate('/resources')
@@ -22,18 +35,18 @@ const Sidebar = () => {
 
     const goTo = useNavigate();
     const goToCommunity = useCallback( () => {
-        navigateTo('/community')
-    }, [navigateTo]);
+        goTo('/community')
+    }, [goTo]);
     return ( 
         <div className="sidemenu">
             <div className="sides">
-                <div className="sidebar-items">
+                <div className="sidebar-items" onClick={goToIntroductory}>
                    <FontAwesomeIcon icon={faHome} style={{ width: '18px', height: '22px', padding: '15px'}}  />           
                     <span>Home</span>
                 </div>
-                <div className="sidebar-items">
+                <div className="sidebar-items" onClick={goToProfile}>
                 <FontAwesomeIcon icon={faPerson} style={{ width: '18px', height: '22px', padding: '15px'}}  />           
-                    <span>Settings</span>
+                    <span>Profile</span>
                 </div>
             </div>                 
             <div className="sides">

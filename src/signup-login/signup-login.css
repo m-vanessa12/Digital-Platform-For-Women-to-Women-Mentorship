@@ -167,6 +167,7 @@
     width: 375px;
     background: transparent;
     border: none;
+    outline: none;
     color: #272626;
     font-size: 17px;
 }

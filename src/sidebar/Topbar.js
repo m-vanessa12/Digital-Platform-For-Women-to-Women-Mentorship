@@ -23,9 +23,14 @@ const Topbar = () => {
         navigateprofile('/profile-create')
     }, [navigateprofile]);
 
+    const navigateHome = useNavigate();
+    const goToHome = useCallback( ()=> {
+        navigateHome('/settings')
+    }, [navigateHome]);
+
     return ( 
         <div className="navbar">
-        <div className="title">WomenT</div>
+        <div className="title">HerMentorship</div>
             <div className="items">
                 <div className="search">
                 <FontAwesomeIcon icon={faSearch} style={{ width: '18px', height: '22px', padding: '12px'}} />
@@ -37,7 +42,7 @@ const Topbar = () => {
                 <div className="plus" onClick={goToCreateDiscusion}>
                     <FontAwesomeIcon icon={faPlus} style={{ width: '18px', height: '22px', padding: '8px', color: '#fff' }} />
                 </div>
-                <div className="profile" onClick={goToProfile}>
+                <div className="profile" onClick={goToHome}>
                     <img src={profile_img} alt="" /> 
 
                 </div>

@@ -63,7 +63,7 @@ const MenteeProfile = () => {
                         </div>
                         <div className="mentee-education">
 
-                            <div className="background-education">
+                            <div className="background-educations">
                                 <div className="school-title">Background education</div>
                                                                 
                                 <div className="school-names">
