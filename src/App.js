@@ -14,6 +14,7 @@ import HomePage from "./Landing Page/landing";
 import PlatformHome from "./Platform overview/home";
 import Settings from "./Settings/settings";
 import ResetPassword from "./Settings/changepasswords";
+import Mentee from "./platform users/MenteeView";
 
 
 // import { BrowserRouter as Router, Route} from 'react-router-dom' 
@@ -39,7 +40,8 @@ function App() {
 
 
         <Route path="/users" element={<Users />} />
-        <Route path="/menteeprofile" element={<MenteeProfile />} />
+        {/* <Route path="/menteeprofile" element={<MenteeProfile />} /> */}
+        <Route path="/menteeprofile" element={<Mentee />} />
 
         <Route path="/resources" element={<Resources />} />
         <Route path="/resourcesAccess" element={<ReAccess />} />
