@@ -8,13 +8,15 @@ import Content from "./discusion board/content";
 import Users from "./platform users/users";
 import Login from "./signup-login/Login";
 import SignUp from "./signup-login/SignUp";
-import MenteeProfile from "./platform users/menteeProfile";
+// import MenteeProfile from "./platform users/menteeProfile";
 import Community from "./community/community";
 import HomePage from "./Landing Page/landing";
 import PlatformHome from "./Platform overview/home";
 import Settings from "./Settings/settings";
 import ResetPassword from "./Settings/changepasswords";
 import Mentee from "./platform users/MenteeView";
+import MentorProfile from "./platform users/MentorProfile";
+import Schedule from "./platform users/schedule";
 
 
 // import { BrowserRouter as Router, Route} from 'react-router-dom' 
@@ -42,6 +44,9 @@ function App() {
         <Route path="/users" element={<Users />} />
         {/* <Route path="/menteeprofile" element={<MenteeProfile />} /> */}
         <Route path="/menteeprofile" element={<Mentee />} />
+        <Route path="/mentorprofile" element={<MentorProfile />} />
+        <Route path="/booksession" element={<Schedule />} />
+
 
         <Route path="/resources" element={<Resources />} />
         <Route path="/resourcesAccess" element={<ReAccess />} />

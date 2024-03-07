@@ -11,6 +11,10 @@ const Users = () => {
     const goToMenteeProfile = useCallback( () =>{
         navigate('/menteeprofile')
     }, [navigate]);
+    const navigateTo = useNavigate();
+    const goToMentorProfile = useCallback( () =>{
+        navigateTo('/mentorprofile')
+    }, [navigateTo]);
     return ( 
         <div className="platform-users">
             <Topbar />
@@ -61,7 +65,7 @@ const Users = () => {
 
                             </div>
                             <div className="users-connect">
-                                <button>Book Session</button>
+                                <button onClick={goToMentorProfile}>Book Session</button>
                             </div>
                         </div>
                         <div className="users-bio">

@@ -19,6 +19,7 @@ const Mentee = () => {
                         <div className="mentee-info">
                             <div className="mentee-name">Vanessa-M</div>
                             <div className="mentee-status">Mentee</div>
+
                         </div>
                         <div className="notify-interest">
                             <input type="button" value={'Notify Interests'} />
@@ -26,6 +27,7 @@ const Mentee = () => {
 
                     </div>
                 </div>
+                
                 <div className="mentee-personal-details">
                     <div className="title">Personal Information</div>
                     <div className="personal-names">
