@@ -8,7 +8,7 @@
     border-bottom-left-radius: 7px;
     display: flex;
     flex-direction: column;
-    height: auto;
+    height: 540px;
     margin-top: 62px;
     margin-left: 163px;
     padding-bottom: 5px;
@@ -30,7 +30,7 @@
 .session-title{
     /* background-color: rgb(223, 186, 186); */
     width: 50%;
-    height: 50px;
+    height: 30px;
     display: flex;
     flex-direction: row;
     gap: 15px;
@@ -43,23 +43,26 @@
     font-size: 20px;
     font-weight: 600;
     color: #2e2d2d;
+    margin-top: 2px;
 }
 
 .book-time{
     margin-top: 20px;  
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 10px;
-    width: 45%;
-    height: 110px;
+    width: 75%;
+    padding-bottom: 10px;
+    height: auto;
     border-radius: 7px;
     /* background-color: antiquewhite; */
-    border: 1px solid #ccc;
-    margin-left: 50px;
+    /* border: 1px solid #ccc; */
+    margin-left: 80px;
 }
 
 .book-from{
-    background-color: #5eeba4;
+    margin-top: 10px;
+    /* background-color: #5eeba4; */
     width: 100%;
     height: 50px;
     padding: 5px;
@@ -67,6 +70,19 @@
     flex-direction: row;
     gap: 15px;
 }
+
+.book-until{
+    margin-top: 10px;
+    /* background-color: #5eeba4; */
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+}
+
 .start-from{
     font-size: 18px;
     font-weight: 600;
@@ -85,12 +101,37 @@
     gap: 10px;
 }
 
-.from-date span{
-    margin-top: 5px;
+.choose-date{
+    background-color: #747474;
+    width: 35%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    border-radius: 7px;
+    justify-content: center;
+    border: 1px solid #747474;
+    font-size: 20px;
 }
 
+.choose-date input {
+    margin-top: 10px;
+    border-radius: 7px;
+    width: calc(100% - 15px);
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: #000;
+    font-size: 16px;
+    padding: 5px;
+    outline: none;
+    opacity: 0.7;
+  }
+  
+
+
 .from-time{
-    width: 40%;
+    width: 35%;
     height: 40px;
     /* background-color: rgb(27, 140, 239); */
     border-radius: 7px;
@@ -107,3 +148,51 @@
     padding: 5px;
     border: none;
 }
+
+
+.session-about{
+    /* background-color: rgb(62, 158, 242); */
+    margin-top: 15px;
+    padding: 5px;
+}
+
+.session-titlee{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.session-text{
+    margin-top: 10px;
+    /* background-color: #c51b1b; */
+    width: 100%;
+    height: 100px;
+    padding-bottom: 10px;
+}
+
+.session-text textarea{
+    padding: 10px;
+    width: 78%;
+    height: 85%;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+
+.send-invite{
+    /* background-color: #0061F5; */
+    width: 22%;
+    height: 45px;
+    border-radius: 7px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.send-invite input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 16px;
+    background-color: #0061F5;
+    color: #fff;
+}
+
