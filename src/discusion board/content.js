@@ -20,8 +20,8 @@ const Content = () => {
         // contentCoverPicture:'',
         createdBy:''
       });
-
     console.log(formData);
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -59,9 +59,10 @@ const Content = () => {
 
     return ( 
         <div className="content-share" >
+            <ToastContainer />
             < Topbar />
             < Sidebar />
-            <form className="form" onSubmit={handleSubmit}>    
+            <form className="formm" onSubmit={handleSubmit}>    
                 <div className="content-title">
                     {/* <FontAwesomeIcon icon={faArrowLeft} style={{ width: '18px', height: '18px', color: '#000'}}  /> */}
                     <span>Create a new discusion</span>
@@ -75,12 +76,14 @@ const Content = () => {
                     <span>Content Category *</span>
                     <select name="category" id="" value={formData.category} onChange={handleChange}>
                         <option value="">Choose content Category</option>
-                        <option value="">Women Empowerment</option>
-                        <option value="">Education for All</option>
-                        <option value="">Women In Technology Change</option>
-                        <option value="">Women Mentorship Opportunity</option>
-                        <option value="">Gender Equality</option>
-                        <option value="">Self-Esteem Tips</option>
+                        <option value="">Choose content Category</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Science">Science</option>
+                        <option value="Politics">Politics</option>
+                        <option value="Women Empowerment">Women Empowerment</option>
+                        <option value="Mental Health">Mental Health</option>
+                        <option value="Gender Equality">Gender Equality</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>   
                 

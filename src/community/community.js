@@ -1,68 +1,107 @@
 import Topbar from "../sidebar/Topbar";
 import Sidebar from "../sidebar/Sidebar";
 import './community.css';
-import profile_img from '../img/profile.jpg';
+import profile_img from '../img/img-profile.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { formatDistanceToNow } from 'date-fns';
+import AddComment from "./addComment";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-import { useNavigate } from 'react-router-dom';
-import { useCallback } from 'react';
+const Community = ({ currentUser }) => {
+    const navigate = useNavigate(); // Use useNavigate hook
+    const [openModal, setOpenModal] = useState(false);
+    const [discussions, setDiscussions] = useState([]);
+    const [userLikes, setUserLikes] = useState({});
 
+    useEffect(() => {
+        const fetchDiscussions = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/forum');
+                const discussionsWithLikes = response.data.discussions.map(discussion => ({
+                    ...discussion,
+                    likes: discussion.likesCount || 0,
+                    name: `${discussion.createdBy.firstName || ''} ${discussion.createdBy.lastName || ''}`
+                }));
 
-const Community = ({discussion, currentUser}) => {
-
-    const initialLikes = discussion && discussion.likes ? discussion.likes.length : 0;
-    const [likes, setLikes] = useState(initialLikes);
-    const [liked, setLiked] = useState(false);
-
-    const handleLike = async () => {
-            try{
-                if (!liked) {
-                    // Send a request to the backend to like the discussion
-                    await axios.post('http://localhost:3000/api/likes', {discussionId: discussion._id, userId: currentUser._id });
-                    setLikes(prevLikes => prevLikes + 1);
-                } else {
-                    // Send a request to the backend to remove the like
-                    // This part would depend on your backend implementation
-                    // For example, you might send a DELETE request to remove the like
-                    await axios.delete(`http://localhost:3000/api/likes/${discussion._id}/${currentUser._id}`);
-                    setLikes(prevLikes => prevLikes - 1);
+                const userLikes = {};
+                for (const discussion of discussionsWithLikes) {
+                    const response = await axios.post('http://localhost:3000/api/likes', { discussionId: discussion._id });
+                    userLikes[discussion._id] = response.data.liked;
                 }
-                setLiked(!liked);
 
-            }catch(error){
-                console.error(error);
+                setDiscussions(discussionsWithLikes);
+                setUserLikes(userLikes);
+            } catch (error) {
+                console.error('Error fetching discussions:', error);
             }
-    
+        };
+        fetchDiscussions();
+    }, []);
+
+    const handleCommentClick = (discussionId) => {
+        console.log(discussionId)
+        if (!currentUser || !currentUser.id) {
+            console.error('User ID is not available');
+           // return;
+        }
+        navigate(`/discussion-comments/${discussionId}`);
     };
+
+    const handleLike = async (discussionId) => {
+        try {
+            const isLiked = userLikes[discussionId];
+            const response = await axios.post('http://localhost:3000/api/likes', { discussionId });
+
+            setUserLikes(prevUserLikes => ({
+                ...prevUserLikes,
+                [discussionId]: !isLiked
+            }));
+
+            setDiscussions(prevDiscussions => {
+                return prevDiscussions.map(discussion => {
+                    if (discussion._id === discussionId) {
+                        return { ...discussion, likes: response.data.likes };
+                    }
+                    return discussion;
+                });
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    
+
 
     return ( 
         <div className="community">
             <Topbar />
             <Sidebar/>
             
-
             <div className="discution-forum">
-                <div className="person-discusion">
-
-                    <div className="discusion-container">
+                <div className="person-discusion"  >
+                  {discussions.map(discussion => (
+                    <div className="discusion-container" key={discussion._id}>
                     <div className="owner-information">
                         <div className="owner-profile-set">
                             <div className="discusion-owner">
                                 <img src={profile_img} alt="" />
                             </div>
                             <div className="discusion-owner-details">
-                                <div className="discusion-owner-names">Vanessa Mukamanzi</div>
+                                <div className="discusion-owner-names">{discussion.createdBy.name}</div>
                                 <div className="discusion-status-time">
-                                    <div className="discucion-status">Mentee</div>
+                                    <div className="discucion-status">{discussion.createdBy.role}</div>
                                     <div className="discucion-dot"></div>
-                                    <div className="posted-time">2 days ago</div>
+                                    <div className="posted-time">
+                                       {formatDistanceToNow(new Date(discussion.createdAt), { addSuffix: true })}
+                                    </div>
                                 </div>                          
-                           </div>
+                        </div>
                         </div>
                         <div className="discusion-access">
                         <FontAwesomeIcon icon={faEllipsisV} style={{ width: '18px', height: '22px', padding: '15px', marginLeft: '30px'}}  /> 
@@ -70,33 +109,37 @@ const Community = ({discussion, currentUser}) => {
                     </div>
 
                     <div className="discusion-forum-content">
-                        <div className="discusion-forum-title">Women Employment In Africa</div>
-                        <div className="discusion-forum-contents">Due to the high unemployment rate, young people can find solutions differently. 
-                        Every year, there are thousands of graduates. Graduates young people increase yearly while the number of job positions doesn't improve. 
-                        The key that young people can consider is finding remote jobs in different countries. Technology increases every time, and this increases 
-                        the number of job opportunities. The second solution is targeting internships in companies. Working as an intern in a company gives people 
-                        chances of getting a job than someone outside a company. Not only that, an internship helps one to gain experience and skills, which makes 
-                        one to be competitive in the market. The third one is to be creative and innovative and create our means of making money. For instance, 
-                        selling things online. We young people need to open our eyes and do our best. The unemployment rate is high, but we can’t sit down and do nothing 
-                        about it. We young people need to find solutions for whatever comes our way instead of sitting down and being discouraged by it.</div>
+                        <div className="discusion-forum-title">{discussion.title}</div>
+                        <div className="discusion-forum-contents">{discussion.content}</div>
                     </div>
                     <div className="discusion-replies">
-                        <div className="discusion-likes" onClick={handleLike}>
-                        <FontAwesomeIcon icon={faThumbsUp} style={{ width: '22px', height: '25px', padding: '5px',color:'#5e5d5d'}}  /> 
-                        <span>{liked ? 'Dislike' : 'Like'}</span>
-                        <span> ({likes})</span>
+                        <div className="discusion-likes" onClick={() => handleLike(discussion._id)}>
+                        <FontAwesomeIcon 
+                            icon={faThumbsUp} 
+                            style={{ 
+                                width: '22px', 
+                                height: '25px', 
+                                padding: '5px',
+                                color: userLikes[discussion._id] ? '#007bff' : '#5e5d5d' // Change color based on userLikes state
+                            }} 
+                        />
+
+                        <span>{discussion.likes}</span>
+                        <span> likes</span>
 
                         </div>
                         <div className="discusion-comments">
                         <FontAwesomeIcon icon={faComment} style={{ width: '22px', height: '25px', padding: '5px', color:'#5e5d5d'}}  /> 
-                        <span>2 comments</span>
+                        <span onClick={() => handleCommentClick(discussion._id)}> comments </span>
+                        {openModal && <AddComment closeModel={setOpenModal} />}
+                        {/* {openModal && clickedDiscussionId === discussion._id && <AddComment closeModel={setOpenModal} discussionId={clickedDiscussionId} userId={currentUser.id} />} */}
                         </div>
                     </div>
                     </div>
 
+               ))}
 
-
-                </div>
+                    </div>          
             
             </div>
         </div>

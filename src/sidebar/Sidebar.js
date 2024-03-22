@@ -1,42 +1,46 @@
 import './navigationbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
-import { faPeopleGroup} from '@fortawesome/free-solid-svg-icons';
-// import { faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
-import { faPerson} from '@fortawesome/free-solid-svg-icons';
-import { faFile} from '@fortawesome/free-solid-svg-icons';
-import { faComment} from '@fortawesome/free-solid-svg-icons';
-
-import { useNavigate } from 'react-router-dom';
+import { faHome, faPeopleGroup, faPerson, faFile, faComment, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+//import { useContext } from 'react'; // Import useContext
+//import { AuthContext } from '../Auth/AuthContext'; // Import AuthContext
 
 const Sidebar = () => {
-
-    const navigates = useNavigate();
-    const goToIntroductory = useCallback( () => {
-        navigates('/introductory')
-    }, [navigates]);
-
-    const navigaProfile = useNavigate();
-    const goToProfile = useCallback( () => {
-        navigaProfile('/profile-create')
-    }, [navigaProfile]);
-
-
     const navigate = useNavigate();
-    const goToResources = useCallback( () => {
-        navigate('/resources')
-    }, [navigate]);
-    
-    const navigateTo = useNavigate();
-    const goToUsers = useCallback( () => {
-        navigateTo('/users')
-    }, [navigateTo]);
+    // const { logout } = useContext(AuthContext); // Access the logout function from AuthContext
 
-    const goTo = useNavigate();
-    const goToCommunity = useCallback( () => {
-        goTo('/community')
-    }, [goTo]);
+    const goToIntroductory = useCallback(() => {
+        navigate('/introductory');
+    }, [navigate]);
+
+    const goToProfile = useCallback(() => {
+        navigate('/mentors');
+    }, [navigate]);
+
+    const goToUsers = useCallback(() => {
+        navigate('/users');
+    }, [navigate]);
+
+    const goToCommunity = useCallback(() => {
+        navigate('/community');
+    }, [navigate]);
+
+    const goToResources = useCallback(() => {
+        navigate('/resources');
+    }, [navigate]);
+
+    // Logout function
+    const handleLogout = () => {
+        // Remove the token from localStorage
+        localStorage.removeItem('token');
+
+        // Call the logout function from AuthContext
+        // logout();
+
+        // Redirect the user to the login page
+        // navigate('/login');
+    };
     return ( 
         <div className="sidemenu">
             <div className="sides">
@@ -61,6 +65,10 @@ const Sidebar = () => {
                 <div className="sidebar-items" onClick={goToResources}>
                 <FontAwesomeIcon icon={faFile} style={{ width: '18px', height: '22px', padding: '15px'}}  />           
                     <span>Resources</span>
+                </div>
+                <div className="sidebar-items" onClick={handleLogout}>
+                <FontAwesomeIcon icon={faSignOut} style={{ width: '18px', height: '22px', padding: '15px'}}  />           
+                    <span>Logout</span>
                 </div>
             </div>                 
         </div>

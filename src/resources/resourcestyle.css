@@ -323,7 +323,7 @@ flex-direction: column;
     width: 70%;
     height: 350px;
     margin-left: 40px;
-    background-color: #0061F5;
+    /* background-color: #0061F5; */
 }
 
 .content-profile img{

@@ -58,7 +58,7 @@ const Resources = () => {
                     </div>
                     <button className='OpenModalBtn' onClick={()=> {
                         setOpenModal(true);
-                    }}>open</button>
+                    }}> open</button>
 
                     {openModal && <ReAccess closeModel={setOpenModal} />}
                 </div>  

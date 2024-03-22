@@ -3,11 +3,13 @@ import email_icon from '../icons/mail.png';
 import google_icon from '../icons/google.png';
 import profile_icon from '../icons/profile.png';
 import password_icon from '../icons/password.png';
-import { useState } from 'react';
+import { useState} from 'react'; // Combine imports for useState and useContext
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode'; // Corrected import statement
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+//import { AuthContext } from '../Auth/AuthContext'; // Assuming AuthContext is exported from this path
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +18,7 @@ const Login = () => {
     });
 
     const navigate = useNavigate();
+    //const { login } = useContext(AuthContext); // Moved useContext call to the top level
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,22 +31,26 @@ const Login = () => {
             const response = await axios.post('http://localhost:3000/api/login', formData);
             const { message, token } = response.data;
             if (message === 'Login Successful') {
-                localStorage.setItem('token', token); // Store token in local storage
-                navigate('/profile-create'); // Redirect to profile page or any other page
+                // Save token to local storage
+                localStorage.setItem('token', token);
+    
+                const decoded = jwtDecode(token);
+                const { role } = decoded;
+    
+                if (role === 'Mentee') {
+                    navigate('/mentee-profile-create');
+                } else if (role === 'Mentor') {
+                    navigate('/mentor-profile-create');
+                }
             } else {
-                // If the message indicates an error, show a toast notification and do not navigate
-                toast.error(message); // Show the message received from the backend
+                toast.error(message);
             }
         } catch (error) {
             console.error('Error during login:', error);
-            // Show a toast notification when login fails
             toast.error('An error occurred during login.');
         }
     };
-
-    // const goToProfile = () => {
-    //     navigate('/profile-create');
-    // };
+    
 
     const goToSignUp = () => {
         navigate('/signup');

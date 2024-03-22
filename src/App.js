@@ -1,61 +1,54 @@
-import Topbar from "./sidebar/Topbar";
-import Sidebar from "./sidebar/Sidebar";
-import Resources from "./resources/resources";
-import ReAccess from "./resources/resourceAccess";
-import ResourcesContent from "./resources/resourcesContent";
-import MenteeProfileCreate from "./profile/mentee";
-import Content from "./discusion board/content";
-import Users from "./platform users/users";
-import Login from "./signup-login/Login";
-import SignUp from "./signup-login/SignUp";
-// import MenteeProfile from "./platform users/menteeProfile";
-import Community from "./community/community";
-import HomePage from "./Landing Page/landing";
-import PlatformHome from "./Platform overview/home";
-import Settings from "./Settings/settings";
-import ResetPassword from "./Settings/changepasswords";
-import Mentee from "./platform users/MenteeView";
-import MentorProfile from "./platform users/MentorProfile";
-import Schedule from "./platform users/schedule";
-
-
-// import { BrowserRouter as Router, Route} from 'react-router-dom' 
-import {Route, Routes, useNavigate} from 'react-router-dom'
-import { BrowserRouter as Router } from 'react-router-dom';
-import { useEffect } from "react";
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './Auth/AuthContext';// Adjust the import path as necessary
+import HomePage from './Landing Page/landing';
+import SignUp from './signup-login/SignUp';
+import Login from './signup-login/Login';
+import MenteeProfileCreate from './profile/mentee';
+import MentorProfileCreate from './profile/mentor';
+import PlatformHome from './Platform overview/home';
+import Content from './discusion board/content';
+import Community from './community/community';
+import Users from './platform users/users';
+import MentorUsers from './platform users/MentorUsers';
+import Mentee from './platform users/MenteeView';
+import Mentor from './platform users/MentorView';
+import Schedule from './platform users/schedule';
+import Settings from './Settings/settings';
+import AddComment from './community/addComment';
+// Import other components as needed
 
 function App() {
-  return (
-
+ return (
     <Router>
+      {/* <AuthProvider>  */}
         <Routes>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path="/signup" element={< SignUp />} />
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/profile-create" element={<MenteeProfileCreate />} />
-        <Route path="/introductory" element={<PlatformHome />} />     
-
-        <Route path="/create-discusion" element={< Content />} />
-        <Route path="/community" element={<Community />} />
-
-
-        <Route path="/users" element={<Users />} />
-        {/* <Route path="/menteeprofile" element={<MenteeProfile />} /> */}
-        <Route path="/menteeprofile" element={<Mentee />} />
-        <Route path="/mentorprofile" element={<MentorProfile />} />
-        <Route path="/booksession" element={<Schedule />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/mentee-profile-create" element={<MenteeProfileCreate />} />
+          <Route path="/mentor-profile-create" element={<MentorProfileCreate />} />
+          <Route path="/introductory" element={<PlatformHome />} />
+          <Route path="/create-discusion" element={<Content />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/mentors" element={<MentorUsers />} />
+          {/* <Route path="/community">
+          <Community currentUser={currentUser} />
+         </Route> */}
 
 
-        <Route path="/resources" element={<Resources />} />
-        <Route path="/resourcesAccess" element={<ReAccess />} />
-        <Route path="/resourcescontent" element={<ResourcesContent />} />
-
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
+          <Route path="/mentees/:menteeId" element={<Mentee />} />
+          <Route path="/mentors/:mentorId" element={<Mentor />} />
+          <Route path="/mentorprofile" element={<Mentor />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/booksession" element={<Schedule />} />
+          <Route path="/discussion-comments/:discussionId" element={<AddComment />} />
+          
+          {/* Add other routes as needed */}
+        </Routes>
+      {/* </AuthProvider> */}
     </Router>
-  );
+ );
 }
 
 export default App;

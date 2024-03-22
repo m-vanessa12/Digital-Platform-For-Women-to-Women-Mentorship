@@ -1,4 +1,4 @@
-import './signup-login.css';
+import '../signup-login/signup-login.css';
 import email_icon from '../icons/mail.png';
 import google_icon from '../icons/google.png';
 import profile_icon from '../icons/profile.png';
@@ -12,45 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Import the CSS
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 
-const SignUp = () => {
-
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-      });
-    console.log(formData);
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: value
-        }));
-    };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-          const response = await axios.post('http://localhost:3000/api/register', formData, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-          console.log('Data created:', response.data);
-          // Optionally, you can clear the form after successful submission
-          setFormData({ firstName: '', lastName:'', email: '', password: ''});
-          toast.success("Account created successfully!");
-        } catch (error) {
-          console.error('Error creating data:', error);
-          toast.error("Failed to create account. Please try again.");
-        }
-    };
-
-    const navigate = useNavigate();
-    const goToLogin = useCallback( () =>{
-        navigate('/login')
-    }, [navigate]);
+const passwordChange = () => {
 
     return ( 
         <div className="container" id='radius'>
@@ -84,23 +46,23 @@ const SignUp = () => {
                 <div className="inputs">
                     <div className="inputfield">
                         <img src={profile_icon} alt="" />
-                        <input type="text" name="firstName" placeholder='First Name' value={formData.firstName} onChange={handleChange}/>
+                        <input type="text" name="firstName" placeholder='First Name' />
                     </div>
                     <div className="inputfield">
                         <img src={profile_icon} alt="" />
-                        <input type="text" name="lastName" placeholder='Last Name' value={formData.lastName} onChange={handleChange}/>
+                        <input type="text" name="lastName" placeholder='Last Name'/>
                     </div>
                     <div className="inputfield">
                         <img src={email_icon} alt="" />
-                        <input type="email" name="email" placeholder='Email' value={formData.email} onChange={handleChange}/>
+                        <input type="email" name="email" placeholder='Email' />
                     </div>
                     <div className="inputfield">
                         <img src={password_icon} alt="" />
-                        <input type="password" name="password" placeholder='Password' value={formData.password} onChange={handleChange}/>
+                        <input type="password" name="password" placeholder='Password'/>
                     </div>
                 </div>
                 <div className="submit-container">
-                    <input type="submit" value='Sign Up' onSubmit={goToLogin}/>
+                    <input type="submit" value='Sign Up' />
                     {/* <div className="submit">Sign Up</div> */}
                     <div className="account">Already have an account? <span onClick={goToLogin}>Login</span></div>
                 </div>
@@ -109,6 +71,6 @@ const SignUp = () => {
         </div>
 
      );
-} 
-export default SignUp;
-
+}
+ 
+export default passwordChange;

@@ -5,10 +5,12 @@
 
 .person-discusion{
     width: 87.4%;
-    margin-top: 42px;
+    margin-top: 47px;
     margin-left: 163px;
     display: flex;
     flex-direction: column;
+    /* background-color: #0061F5; */
+    padding-bottom: 10px;
     /* overflow: hidden; */
 }
 .discusion-container{
@@ -17,7 +19,7 @@
     display: flex;
     flex-direction: column;
     height: auto;
-    margin-top: 20px;
+    margin-top: 15px;
     padding-bottom: 5px;
     background-color: #fff;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
@@ -162,15 +164,31 @@
 
 .discusion-comments{
     height: 40px;
-    width: 70%;
-    /* background-color: brown; */
+    width: 25%;
+    /* background-color: rgb(233, 164, 164); */
     display: flex;
     flex-direction: row;
     gap: 5px;
+    cursor: pointer;
 }
 
 .discusion-comments span{
     font-size: 16px;
     margin-top: 8px;
     color: #5e5d5d;
+}
+
+.discusion-comments:hover{
+    text-decoration: underline;
+    color: #0061F5;
+}
+.discusion-comments span:hover{
+    text-decoration: underline;
+    color: #0061F5;
+}
+
+.comments{
+    height: 100px;
+    background-color: #e43333 ;
+    
 }

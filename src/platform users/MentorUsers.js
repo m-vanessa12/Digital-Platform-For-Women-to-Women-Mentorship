@@ -6,34 +6,33 @@ import axios from 'axios';
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, } from 'react-router-dom';
 
-const Users = () => {
+const MentorUsers = () => {
     const navigate = useNavigate();
     
-    const goToMenteeProfile = useCallback((menteeId) => {
-        if (menteeId) {
-            // Append the menteeId to the URL when navigating
-            navigate(`/mentees/${menteeId}`);
+    const goToMentorProfile = useCallback((mentorId) => {
+        if (mentorId) {
+            // Append the mentorId to the URL when navigating
+            navigate(`/mentors/${mentorId}`);
         } else {
-            console.error('Mentee ID is undefined');
+            console.error('Mentor ID is undefined');
         }
     }, [navigate]);
     
 
-    const [mentees, setMentees] = useState([]);
+    const [mentors, setMentors] = useState([]);
 
     useEffect(() => {
-        const fetchMentees = async () => {
+        const fetchMentors = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/profiles');
-                setMentees(response.data);
-                console.log(response)
+                const response = await axios.get('http://localhost:3000/api/all-mentors');
+                setMentors(response.data);
             } catch (error) {
-                console.error('Error fetching mentees:', error);
+                console.error('Error fetching mentors:', error);
             }
         };
-        fetchMentees();
+        fetchMentors();
     }, []);
-    console.log(mentees)
+
 
     return ( 
         <div className="platform-users">
@@ -53,24 +52,24 @@ const Users = () => {
                 </div>
 
                 <div className="users-display">
-                   {mentees.map(mentee => (                   
-                        <div className="users-cards" key={mentee._id} >
+                    {mentors.map(mentor => (                   
+                        <div className="users-cards" key={mentor._id} >
                         
                             <div className="main-info">
                                 <div className="users-info">
                                     <div className="user-profile">
                                         <img src={profile_img} alt="" />
                                     </div>
-                                    <div className="user-names">{mentee.name}</div>
-                                    <div className="user-category">{mentee.role}</div>
+                                    <div className="user-names">{mentor.name}</div>
+                                    <div className="user-category">{mentor.role}</div>
                                 </div>
                                 <div className="users-connect">
-                                    <button onClick={() => goToMenteeProfile(mentee._id)}>View Profile</button>
+                                    <button onClick={() => goToMentorProfile(mentor._id)}>View Profile</button>
                                     
                                 </div>
                             </div>
                             <div className="users-bio">
-                                <span>{mentee.interests} </span>
+                                <span>{mentor.qualifications} </span>
                             </div>
                         </div>
                     ))}
@@ -80,4 +79,4 @@ const Users = () => {
     );
 }
  
-export default Users;
+export default MentorUsers;
